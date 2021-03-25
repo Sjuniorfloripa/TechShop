@@ -1,5 +1,6 @@
 package com.Silvano.TechShop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ public class Produto implements Serializable {
     private Double preco;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "Produto_Categoria", joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();

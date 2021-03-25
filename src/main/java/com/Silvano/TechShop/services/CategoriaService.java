@@ -22,6 +22,6 @@ public class CategoriaService {
     public Categoria buscarPorId(Integer id) {
         Optional<Categoria> categoria = repository.findById(id);
         return categoria.orElseThrow(() -> new ObjectNotFoundException(
-                String.format("Categoria Não encotrada! Id: %d, Tipo: %s.", id, Categoria.class.getName())));
+                String.format("Categoria Não encotrada! ID: %d, Tipo: %s.", id, Categoria.class.getName())));
     }
 }
