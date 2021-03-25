@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class Categoria implements Serializable {
+public class Produto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +20,17 @@ public class Categoria implements Serializable {
     @Column(name = "nome")
     private String nome;
 
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos = new ArrayList<>();
+    @Column(name = "preço")
+    private Double preco;
 
-    //construtores
-    public Categoria(Integer id, String nome) {
+    @ManyToMany
+    @JoinTable(name = "Produto_Categoria", joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private List<Categoria> categorias = new ArrayList<>();
+
+    public Produto(Integer id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
+        this.preco = preco;
     }
 }
