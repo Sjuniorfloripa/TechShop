@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "produto")
 @Data
 @NoArgsConstructor
 public class Produto implements Serializable {

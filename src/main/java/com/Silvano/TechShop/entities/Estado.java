@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "estado")
 @Data
 @NoArgsConstructor
 public class Estado implements Serializable {
