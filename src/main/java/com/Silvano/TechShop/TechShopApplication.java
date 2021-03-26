@@ -1,19 +1,12 @@
 package com.Silvano.TechShop;
 
-import com.Silvano.TechShop.entities.*;
-import com.Silvano.TechShop.enuns.TipoCliente;
-import com.Silvano.TechShop.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.Arrays;
-
 @SpringBootApplication
-public class TechShopApplication implements CommandLineRunner {
+public class TechShopApplication {
 
-    @Autowired
+ /*   @Autowired
     private CategoriaRepository categoriaRepository;
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -24,13 +17,13 @@ public class TechShopApplication implements CommandLineRunner {
     @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
-    private EnderecoRepository enderecoRepository;
+    private EnderecoRepository enderecoRepository;*/
 
     public static void main(String[] args) {
         SpringApplication.run(TechShopApplication.class, args);
     }
 
-    @Override
+    /*@Override
     public void run(String... args) throws Exception {
 
         Categoria categoria1 = new Categoria(null, "Informática");
@@ -73,5 +66,18 @@ public class TechShopApplication implements CommandLineRunner {
 
         clienteRepository.saveAll(Arrays.asList(cliente1));
         enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
-    }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Pedido pedido1 = new Pedido(null, sdf.parse("30/09/2020 10:32"), cliente1, endereco1);
+        Pedido pedido2 = new Pedido(null, sdf.parse("10/10/2020 19:36"), cliente1, endereco2);
+
+        Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, 6);
+        pedido1.setPagamento(pagamento1);
+
+        Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2, sdf.parse("20/10/2021 00:00"), null);
+        pedido2.setPagamento(pagamento2);
+
+        cliente1.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+    }*/
 }
