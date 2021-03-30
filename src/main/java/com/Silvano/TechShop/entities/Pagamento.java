@@ -1,6 +1,7 @@
 package com.Silvano.TechShop.entities;
 
 import com.Silvano.TechShop.enuns.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public abstract class Pagamento implements Serializable {
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
+    @JsonIgnore
     private Pedido pedido;
 
     public Pagamento(Integer id, EstadoPagamento status, Pedido pedido) {

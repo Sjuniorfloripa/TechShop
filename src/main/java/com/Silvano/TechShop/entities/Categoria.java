@@ -1,5 +1,6 @@
 package com.Silvano.TechShop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ public class Categoria implements Serializable {
     @Column(name = "nome")
     private String nome;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<>();
 

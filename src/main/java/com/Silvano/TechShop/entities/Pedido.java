@@ -1,5 +1,6 @@
 package com.Silvano.TechShop.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class Pedido  implements Serializable {
     private Integer id;
 
     @Column(name = "instance")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instance;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")

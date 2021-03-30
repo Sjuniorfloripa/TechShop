@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoriaService {
@@ -15,7 +14,7 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repository;
 
-    public Categoria criar(Categoria categoria){
+    public Categoria criar(Categoria categoria) {
         return repository.save(categoria);
     }
 
@@ -24,8 +23,8 @@ public class CategoriaService {
     }
 
     public Categoria buscarPorId(Integer id) {
-        Optional<Categoria> categoria = repository.findById(id);
-        return categoria.orElseThrow(() -> new ObjectNotFoundException(
-                String.format("Categoria Não encotrada! ID: %d, Tipo: %s.", id, Categoria.class.getName())));
+        return repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(
+                String.format("Categoria não encontrada! ID: %d Tipo: %s", id, Categoria.class.getName())
+        ));
     }
 }
