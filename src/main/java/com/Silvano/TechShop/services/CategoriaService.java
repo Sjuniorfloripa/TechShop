@@ -28,4 +28,9 @@ public class CategoriaService {
                 String.format("Categoria não encontrada! ID: %d Tipo: %s", id, Categoria.class.getName())
         ));
     }
+
+    public Categoria update(Categoria categoria){
+        buscarPorId(categoria.getId());
+        return repository.save(categoria);
+    }
 }
