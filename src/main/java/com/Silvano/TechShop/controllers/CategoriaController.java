@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +36,8 @@ public class CategoriaController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> inserir(@RequestBody Categoria categoria){
+    public ResponseEntity<Void> inserir(@Valid @RequestBody CategoriaDto categoriaDto){
+        Categoria categoria = service.fromDto(categoriaDto);
         categoria = service.criar(categoria);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(categoria.getId()).toUri();
@@ -43,7 +45,8 @@ public class CategoriaController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable Integer id){
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDto categoriaDto, @PathVariable Integer id){
+        Categoria categoria = service.fromDto(categoriaDto);
         categoria.setId(id);
         categoria = service.update(categoria);
         return ResponseEntity.noContent().build();
@@ -59,10 +62,10 @@ public class CategoriaController {
     public ResponseEntity<Page<CategoriaDto>> findPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-            @RequestParam(value = "orderBy", defaultValue = "nome") String orderby,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction){
 
-        Page<Categoria> list = service.encontrarPagina(page, linesPerPage, orderby, direction);
+        Page<Categoria> list = service.encontrarPagina(page, linesPerPage, orderBy, direction);
         Page<CategoriaDto> listDto = list.map(categoria -> new CategoriaDto(categoria));
         return ResponseEntity.ok().body(listDto);
     }

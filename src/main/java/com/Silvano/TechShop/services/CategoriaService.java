@@ -1,5 +1,6 @@
 package com.Silvano.TechShop.services;
 
+import com.Silvano.TechShop.dto.CategoriaDto;
 import com.Silvano.TechShop.entities.Categoria;
 import com.Silvano.TechShop.exceptions.DataIntegrityException;
 import com.Silvano.TechShop.exceptions.ObjectNotFoundException;
@@ -47,11 +48,14 @@ public class CategoriaService {
             throw new DataIntegrityException(
                     "Não é possível excluir categoria que possui produtos dentro da table.");
         }
-
     }
 
     public Page<Categoria> encontrarPagina(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of( page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
+    }
+
+    public Categoria fromDto(CategoriaDto categoriaDto){
+        return new Categoria(categoriaDto.getId(), categoriaDto.getNome());
     }
 }
