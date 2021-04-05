@@ -1,5 +1,6 @@
 package com.Silvano.TechShop.controllers;
 
+import com.Silvano.TechShop.dto.CategoriaDto;
 import com.Silvano.TechShop.entities.Categoria;
 import com.Silvano.TechShop.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categorias")
@@ -17,15 +19,12 @@ public class CategoriaController {
     @Autowired
     private CategoriaService service;
 
-/*    @PostMapping
-    public Categoria criar(@RequestBody Categoria categoria){
-        return service.criar(categoria);
-    }
- */
-
     @GetMapping("/all")
-    public List<Categoria> listar() {
-        return service.listar();
+    public ResponseEntity<List<CategoriaDto>> listar(){
+        List<Categoria> list = service.listar();
+        List<CategoriaDto> listDto = list.stream().map(categoria ->
+                new CategoriaDto(categoria)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @GetMapping(value = "/{id}")
@@ -54,5 +53,4 @@ public class CategoriaController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
