@@ -4,6 +4,7 @@ import com.Silvano.TechShop.dto.CategoriaDto;
 import com.Silvano.TechShop.entities.Categoria;
 import com.Silvano.TechShop.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -52,5 +53,17 @@ public class CategoriaController {
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<Page<CategoriaDto>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderby,
+            @RequestParam(value = "direction", defaultValue = "ASC") String direction){
+
+        Page<Categoria> list = service.encontrarPagina(page, linesPerPage, orderby, direction);
+        Page<CategoriaDto> listDto = list.map(categoria -> new CategoriaDto(categoria));
+        return ResponseEntity.ok().body(listDto);
     }
 }

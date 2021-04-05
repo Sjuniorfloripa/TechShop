@@ -6,6 +6,9 @@ import com.Silvano.TechShop.exceptions.ObjectNotFoundException;
 import com.Silvano.TechShop.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +48,10 @@ public class CategoriaService {
                     "Não é possível excluir categoria que possui produtos dentro da table.");
         }
 
+    }
+
+    public Page<Categoria> encontrarPagina(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of( page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repository.findAll(pageRequest);
     }
 }
